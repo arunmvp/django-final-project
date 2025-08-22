@@ -1,0 +1,139 @@
+{% extends 'index.html' %}
+
+
+{% block products %}
+   
+<style>
+    /* Dark Mode */
+:root {
+  --bg-color: #121212;
+  --form-bg: #1e1e1e;
+  --text-color: #ffffff;
+  --input-bg: #2c2c2c;
+  --border-color: #444;
+  --accent-color: #4CAF50;
+  --button-hover: #45a049;
+}
+
+/* body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+ 
+  height: 100vh;
+} */
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  margin: auto;
+  margin-top: 3rem;
+}
+
+.signup-form {
+  background-color: var(--form-bg);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.signup-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent-color);
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--button-hover);
+}
+.signup-form a{
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+</style>
+    
+
+<div class="container">
+    <form class="signup-form" action="/auth/signupFun/" method="POST"> 
+      {% csrf_token %}
+      <h2>Sign Up</h2>
+
+
+      <div class="input-group">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" placeholder="Enter your first name" name="firstname" required />
+      </div>
+
+      <div class="input-group">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" placeholder="Enter your last name" name="lastname" required />
+      </div>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Choose a username" name="username" required />
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" name="email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" name="password" required />
+      </div>
+
+      <div class="input-group">
+        <label for="confirmpassword">Confirm Password</label>
+        <input type="password" id="confirmpassword" placeholder="Re-enter password" name="confirmpassword" required />
+      </div>
+
+      <button type="submit">Register</button>
+
+      <a href="/auth/log_in/">Login?</a> 
+    </form>
+
+  </div>
+
+{% endblock products %}

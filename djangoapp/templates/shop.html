@@ -1,0 +1,71 @@
+{% extends 'index.html' %} {% block products %}
+
+<style>
+  .products-section {
+    padding: 1rem 1rem;
+    min-height: 555px;
+    margin-top: 80px;
+  }
+  .products-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1.5rem;
+    margin: 0 3rem;
+  }
+  .product-card {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  .product-card img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  .product-card h3 {
+    margin: 1rem 0 0.5rem;
+  }
+  .product-card p {
+    color: #81c784;
+    margin-bottom: 1rem;
+  }
+  .product-card button {
+    background-color: #81c784;
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .product-card button:hover {
+    background-color: #66bb6a;
+  }
+</style>
+
+<section class="products-section">
+  <h2>Products</h2>
+
+  <div class="product-list">
+    {% for product in allproducts %}
+    <div class="product-card">
+      <img src="{{product.image}}" alt="" />
+      <h3>{{product.title}}</h3>
+      <p>${{product.price}}</p>
+      <button>Add to Cart</button>
+    </div>
+
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock products %}

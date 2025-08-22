@@ -1,0 +1,193 @@
+{% extends 'index.html' %} {% block products %} {% load static %}
+<style>
+    .products-section {
+      padding: 1rem 1rem;
+      min-height: 555px;
+      margin-top:80px;
+    }
+    .products-section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.5rem;
+      margin: 0 3rem;
+    }
+    .product-card {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    .product-card img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .product-card h3 {
+      margin: 1rem 0 0.5rem;
+    }
+    .product-card p {
+      color: #81c784;
+      margin-bottom: 1rem;
+    }
+    .product-card button {
+      background-color: #81c784;
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .product-card button:hover {
+      background-color: #66bb6a;
+    }
+      {% comment %} body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #121212;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    } {% endcomment %}
+
+  .slider-container {
+    position: relative;
+    width: 92%;
+    height:50vh;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: auto;
+    position:relative;
+    top:40px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    object-fit: fill;
+  }
+  .slider img{
+    height: 430px;
+    width: 100%;
+  }
+
+  .slide {
+    min-width: 100%;
+    display: none;
+    {% comment %} border-radius: 10px; {% endcomment %}
+  }
+
+  .slide.active {
+    display: block;
+  }
+
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+    border-radius: 10px;
+  }
+
+  .prev:hover, .next:hover {
+    background-color: rgba(65, 64, 64, 0.3);
+  }
+
+  .prev {
+    left: 10px;
+  }
+
+  .next {
+    right: 10px;
+  }
+  .spann{
+    background-color: #3d3d3dff !important;
+    height: 1px;
+    width: 92%;
+    margin: auto;
+  }
+</style>
+
+<div class="slider-container">
+  <div class="slider">
+    <img src="{% static 'assets/sponsorjpg10.jpg' %}" class="slide active" />
+    <img src="{% static 'assets/sponsorjpg11.jpg' %}" class="slide" />
+    <img src="{% static 'assets/sponsor11.jpg' %}" class="slide" />
+  </div>
+  <button class="prev" onclick="prevSlide()">&#10094;</button>
+  <button class="next" onclick="nextSlide()">&#10095;</button>
+</div>
+
+<section class="products-section">
+  <h2>Featured Products</h2>
+  <div class="product-list">
+    {% for product in products %}
+    <div class="product-card">
+      <img src="{{product.image}}" alt="" />
+      <h3>{{product.title}}</h3>
+      <p>${{product.price}}</p>
+      <button>Add to Cart</button>
+    </div>
+
+    {% endfor %}
+  </div>
+</section>
+<div class="spann"></div>
+
+<section class="products-section">
+  <h2>New Products</h2>
+  <div class="product-list">
+    {% for product in newproducts %}
+    <div class="product-card">
+      <img src="{{product.image}}" alt="" />
+      <h3>{{product.title}}</h3>
+      <p>${{product.price}}</p>
+      <button>Add to Cart</button>
+    </div>
+
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll(".slide");
+
+  function showSlide(index) {
+    slides.forEach((slide) => slide.classList.remove("active"));
+    slides[index].classList.add("active");
+  }
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+  function prevSlide() { 
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length; 
+    showSlide(currentIndex);
+  }
+
+  // Auto-play every 3 seconds
+  setInterval(nextSlide, 3000);
+
+  // Show the first slide
+  showSlide(currentIndex);
+</script>
+
+{% endblock products %}
